@@ -5,10 +5,9 @@ class Utilities {
     List<Widget> widgets = [];
     int n = products.length;
     print(n);
-
     for (int i = 0; i <= n - 1; i++) {
-      var site = products[i]["sno"];
-      var link = products[i]["name"];
+      var sno = products[i]["sno"];
+      var name = products[i]["name"];
       widgets.add(
           Row(children: [
             Text("Sno:- ${products[i]["sno"]}")]));
