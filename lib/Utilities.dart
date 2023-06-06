@@ -1,24 +1,23 @@
 
 import 'package:flutter/cupertino.dart';
 class Utilities {
-  static List<Widget> getWidgets(BuildContext context) {
-    List<Widget> widgets = [];
-    int n = products.length;
-    print(n);
-    for (int i = 0; i <= n - 1; i++) {
-      var sno = products[i]["sno"];
-      var name = products[i]["name"];
-      widgets.add(
-          Row(children: [
-            Text("Sno:- ${products[i]["sno"]}")]));
-      widgets.add(
-          Row(children: [
-            Text("Name:- ${products[i]["name"]}"),
-          ]));
-    }
-    return widgets;
-  }
-
+  static List<String> data=["$products"];
+  // static dynamic productdetail = "sno";
+  // static List<Product> getWidgets(BuildContext context) {
+  //   List<Product> product = [];
+  //   int n = products.length;
+  //   print(n);
+  //
+  //   for (int i = 0; i <= n - 1; i++) {
+  //     var sno = products[i]["sno"];
+  //     var name = products[i]["name"];
+  //
+  //     Row(children: [Text("productno:- ${products[i]["sno"]}")]);
+  //     Row(children: [Text("productname:- ${products[i]["name"]}")]);}
+  //
+  //   return product;
+  // }
+  //
   static dynamic products = "";
 }
 
