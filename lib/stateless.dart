@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
           title: const Text("My app"),
           centerTitle: true,
         ),
-        body: const ShowGrid(),
+        body: ShowGrid(),
       ),
     );
   }
