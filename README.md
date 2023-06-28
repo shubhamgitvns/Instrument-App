@@ -1,4 +1,3 @@
-# piano
-This is a music app in this app import audio library to create the sound.
- piano is a musical stringed instrument resembling a harp set in a vertical or horizontal frame, played by depressing keys that cause hammers to strike the strings and produce audible vibrations
-See also grand piano, upright piano 
+<h1 align="center">piano App </h1>
+  <h2>Overview</h2>
+A piano app is a software application that simulates the experience of playing a traditional piano on a digital device such as a smartphone, tablet, or computer. These apps are designed to provide users with a virtual piano keyboard, allowing them to play various notes, chords, and melodies.
