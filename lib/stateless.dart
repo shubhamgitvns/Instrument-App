@@ -76,6 +76,7 @@ class HomePage extends StatelessWidget {
                                     'https://cdn.pixabay.com/photo/2012/04/13/00/39/piano-31357_1280.png'))),
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(

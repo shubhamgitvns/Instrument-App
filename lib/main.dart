@@ -32,21 +32,13 @@ void main() {
     routes: {
       '/': (context) => const HomePage(),
       '/Piano': (context) => const VariousDiscs(50),
-      '/Drum': (context) => const DrumPage(),
+      '/Drum': (context) => const DrumPage(50),
 
 
     },
   ));
 }
 
-
-
-// Container(
-        //   color: const Color(0xFFF1000),
-        //   child: const SizedBox.expand(
-        //     child: VariousDiscs(50),
-        //   ),
-        // ),
 
 
 
