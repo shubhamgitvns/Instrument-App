@@ -405,7 +405,7 @@ class _DrumPageState extends State<DrumPage> {
                 },
               );
               final player = AudioPlayer();
-              player.play(AssetSource('note1.wav'));
+              player.play(AssetSource('drum1.wav'));
 
             },
           ),
@@ -443,7 +443,13 @@ class _DrumPageState extends State<DrumPage> {
             ),
             child: Text("",style: TextStyle(fontSize: 40),),
             onPressed: (){
-
+              setState(
+                    () {
+                  _makeDiscs();
+                },
+              );
+              final player = AudioPlayer();
+              player.play(AssetSource('Drum2.wav'));
             },
           ),
         ),
@@ -479,6 +485,13 @@ class _DrumPageState extends State<DrumPage> {
           ),
           child: Text("",style: TextStyle(fontSize: 40),),
           onPressed: (){
+      setState(
+            () {
+          _makeDiscs();
+        },
+      );
+      final player = AudioPlayer();
+      player.play(AssetSource('drum3.wav'));
 
           },
         ),
