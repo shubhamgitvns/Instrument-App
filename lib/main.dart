@@ -1,43 +1,52 @@
 
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'dart:convert' as convert;
-import 'package:http/http.dart' as http;
+import 'package:piano/stateful.dart';
 import 'package:piano/stateless.dart';
 
-import 'Utilities.dart';
-Future<void> main() async {
-  Utilities.products = await Downloader.download(
-      "gist.githubusercontent.com", //Site name
-      // Site link
-      "shubhamgitvns/3935c8fe5f8899d7f4c5bb7a8bc9a175/raw/fb7ae0ca0962f483a1389e10aa3c952d8c4fc425/array.json");
-  var productsarray = Utilities.products["array"];
-  print(productsarray);
-  String sno;
-  sno=(productsarray[0]["sno"]);
-  print(sno);
-  print(Utilities.products["array"][0]["name"]);
-  Utilities.products = productsarray;
+class DiscData {
+  static final _rng = Random();
 
-  runApp(const MyApp());
+  final double size;
+  final Color color;
+  final Alignment alignment;
+
+  DiscData()
+      : size = _rng.nextDouble() * 40 + 10,
+        color = Color.fromARGB(
+          _rng.nextInt(200),
+          _rng.nextInt(255),
+          _rng.nextInt(255),
+          _rng.nextInt(255),
+        ),
+        alignment = Alignment(
+          _rng.nextDouble() * 2 - 1,
+          _rng.nextDouble() * 2 - 1,
+        );
+}
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    initialRoute: '/',
+    routes: {
+      '/': (context) => const HomePage(),
+      '/Piano': (context) => const VariousDiscs(50),
+      '/Drum': (context) => const DrumPage(),
+
+
+    },
+  ));
 }
 
 
 
+// Container(
+        //   color: const Color(0xFFF1000),
+        //   child: const SizedBox.expand(
+        //     child: VariousDiscs(50),
+        //   ),
+        // ),
 
-class Downloader{
-  static Future download(String site, String link) async {
-    // final url = Uri.https("gist.githubusercontent.com", link, {});
-    final url = Uri.https(site, link, {});
-    try {
-      final response = await http.get(url);
-      print("Status ${response.statusCode}");
-      final jsonResponse = convert.jsonDecode(response.body);
-      //print(jsonResponse);
 
-      return jsonResponse;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-}
+
