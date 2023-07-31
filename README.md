@@ -26,4 +26,10 @@ Flutter/Dart
     <li>Multi-Touch Support</li>
   <li>Every Button Create The Different Sound</li>
   </ul>
+  <h2>Welcome Page</h2>
+  <img width="959" alt="welcome" src="https://github.com/shubhamgitvns/piano/assets/93187281/5c9a2c2b-b001-4fba-94ae-7b77ce826eb3">
+  <h2>Piano Page</h2>
 <img width="960" alt="piano app" src="https://github.com/shubhamgitvns/piano/assets/93187281/a37755a0-8cef-49ac-aea5-f59a913b319e">
+<h2>Drum Page</h2>
+<img width="955" alt="Screenshot 2023-07-31 162148" src="https://github.com/shubhamgitvns/piano/assets/93187281/75e3119d-be61-43fc-aa70-75edaa527f72">
+
