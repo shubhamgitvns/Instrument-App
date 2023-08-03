@@ -1,6 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.piano">
-   <application
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.piano"
+    tools:ignore="ExtraText">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAG"/>
+    <application
         android:label="piano"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

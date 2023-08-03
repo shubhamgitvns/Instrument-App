@@ -11,6 +11,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   audioplayers: ^4.1.0
   sqflite: ^2.2.8+4
+  flutter_sound: ^8.0.3
+  permission_handler:
+  file_picker:
+  flutter_file_dialog:
 
 dev_dependencies:
   flutter_test:

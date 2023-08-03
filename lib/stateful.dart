@@ -1,7 +1,16 @@
+
+import 'dart:async';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'main.dart';
+
 //************Piano Page**************************//
 class VariousDiscs extends StatefulWidget {
   final int numberOfDiscs;
@@ -9,17 +18,56 @@ class VariousDiscs extends StatefulWidget {
   const VariousDiscs(this.numberOfDiscs);
 
   @override
-  State<VariousDiscs> createState() => _VariousDiscsState();
+  _VariousDiscsState createState() => _VariousDiscsState();
+  // State<VariousDiscs> createState() => _VariousDiscsState();
 }
 
 class _VariousDiscsState extends State<VariousDiscs> {
   final _discs = <DiscData>[];
+  bool _isRecording = false;
+  FlutterSoundRecorder? _audioRecorder;
+  FlutterSoundPlayer? _audioPlayer;
+  int _Counter = 30;
+  late Timer _timer;
+  bool playrec = false;
+  bool stoprec = false;
+  bool startrec = true;
 
   @override
   void initState() {
     super.initState();
     _makeDiscs();
+    _initializeAudio();
   }
+
+  void _initializeAudio() {
+    _audioRecorder = FlutterSoundRecorder();
+    _audioPlayer = FlutterSoundPlayer();
+    _audioPlayer!.openAudioSession();
+  }
+
+  @override
+  void dispose() {
+    _audioRecorder!.closeAudioSession();
+    _audioPlayer!.closeAudioSession();
+    super.dispose();
+  }
+  // void startTimer() {
+  //   _Counter = 30;
+  //   _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+  //     if (_Counter > 0) {
+  //       setState(() {
+  //         _Counter--;
+  //       });
+  //     } else {
+  //       setState(() {
+  //         //change the bool value here on timeover
+  //         _timer.cancel();
+  //       });
+  //     }
+  //   });
+  // }
+
 
   void _makeDiscs() {
     _discs.clear();
@@ -27,7 +75,9 @@ class _VariousDiscsState extends State<VariousDiscs> {
       _discs.add(DiscData());
     }
   }
-  double buttonheight=150;
+
+  double buttonheight = 150;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,9 +87,97 @@ class _VariousDiscsState extends State<VariousDiscs> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                    _isRecording
+                        ? Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
+                        : ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(5.0),
+                              side: const BorderSide(
+                                color: Colors.orange,
+                                width: 1.0,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              primary: Colors.white,
+                              //elevation: like a box shadow
+                              elevation: 10.0,
+                            ),
+                            onPressed:
+                            _startRecording
+                                // setState(() {
+                                //   startrec = false;
+                                //   stoprec = true;
+                                //   playrec = false;
+                                // });
+                            ,
+                            child: const Icon(
+                              Icons.mic,
+                              color: Colors.green,
+                            )),
+                  SizedBox(width: 10,),// ElevatedButton(
+
+                  // if (stoprec)
+                    //Text('Recording...$_Counter'),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
+                        ),
+                        onPressed:
+
+                            _stopRecording
+                            // setState(() {
+                            //   startrec = true;
+                            //   playrec = true;
+                            //   stoprec = false;
+                            // });
+
+                        ,
+                        child: const Icon(
+                          Icons.mic_none,
+                          color: Colors.red,
+                        )),
+                  const SizedBox(
+                    width: 10,
+                  ),
+
+                  // if (playrec)
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
+                        ),
+                        onPressed:_playRecordedAudio,
+                        child: const Icon(
+                          Icons.headphones,
+                          color: Colors.blue,
+                        )), // ElevatedButton(
+                ],
+              ),
               Expanded(
                 child: SizedBox(
-
                   height: 300,
                   child: Stack(
                     children: [
@@ -76,15 +214,14 @@ class _VariousDiscsState extends State<VariousDiscs> {
                   Row(
                     children: [
                       Expanded(
-
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                 },
                               );
@@ -94,7 +231,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -103,11 +241,11 @@ class _VariousDiscsState extends State<VariousDiscs> {
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                   // await Future.delayed(Duration(seconds: 2));
                                   //_makeDiscs();
@@ -120,7 +258,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -129,11 +268,11 @@ class _VariousDiscsState extends State<VariousDiscs> {
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                   // await Future.delayed(Duration(seconds: 2));
                                   //_makeDiscs();
@@ -146,7 +285,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -155,11 +295,11 @@ class _VariousDiscsState extends State<VariousDiscs> {
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                   // await Future.delayed(Duration(seconds: 2));
                                   //_makeDiscs();
@@ -172,7 +312,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -181,11 +322,11 @@ class _VariousDiscsState extends State<VariousDiscs> {
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                   // await Future.delayed(Duration(seconds: 2));
                                   //_makeDiscs();
@@ -198,7 +339,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -207,11 +349,11 @@ class _VariousDiscsState extends State<VariousDiscs> {
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                   // await Future.delayed(Duration(seconds: 2));
                                   //_makeDiscs();
@@ -224,7 +366,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -233,11 +376,11 @@ class _VariousDiscsState extends State<VariousDiscs> {
                         child: SizedBox(
                           height: buttonheight,
                           child: ElevatedButton(
-                            style:
-                            ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black),
                             onPressed: () {
                               setState(
-                                    () {
+                                () {
                                   _makeDiscs();
                                   // await Future.delayed(Duration(seconds: 2));
                                   //_makeDiscs();
@@ -250,7 +393,8 @@ class _VariousDiscsState extends State<VariousDiscs> {
                             },
                             child: const Text(
                               "",
-                              style: TextStyle(color: Colors.teal, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.teal, fontSize: 20),
                             ),
                           ),
                         ),
@@ -263,8 +407,45 @@ class _VariousDiscsState extends State<VariousDiscs> {
       ),
     );
   }
-}
 
+  void _startRecording() async {
+    if (await _requestPermission(Permission.microphone)) {
+      String filePath = await _getFilePath();
+      await _audioRecorder!.openAudioSession();
+      await _audioRecorder!.startRecorder(
+        toFile: filePath,
+        codec: Codec.aacMP4,
+      );
+      setState(() => _isRecording = true);
+    } else {
+      print('Permission denied.');
+    }
+  }
+
+  void _stopRecording() async {
+    await _audioRecorder!.stopRecorder();
+    setState(() => _isRecording = false);
+  }
+
+  Future<String> _getFilePath() async {
+    Directory appDir = await getApplicationDocumentsDirectory();
+    String filePath = appDir.path + '/recorded_audio.aac';
+    return filePath;
+  }
+
+  Future<bool> _requestPermission(Permission permission) async {
+    PermissionStatus status = await permission.request();
+    return status.isGranted;
+  }
+
+  void _playRecordedAudio() async {
+    String filePath = await _getFilePath();
+    await _audioPlayer!.startPlayer(
+      fromURI: filePath,
+      codec: Codec.aacMP4,
+    );
+  }
+}
 //********************Drum Page**************************//
 
 class DrumPage extends StatefulWidget {
@@ -290,7 +471,8 @@ class _DrumPageState extends State<DrumPage> {
       _discs.add(DiscData());
     }
   }
-  double buttonheight=150;
+
+  double buttonheight = 150;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -302,7 +484,6 @@ class _DrumPageState extends State<DrumPage> {
             children: [
               Expanded(
                 child: SizedBox(
-
                   height: 300,
                   child: Stack(
                     children: [
@@ -336,16 +517,14 @@ class _DrumPageState extends State<DrumPage> {
               ),
               Column(
                 children: [
-
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     Customcontainer(context),
-                     Secondbutton(context),
-                     Thirdbutton(context),
-
-                   ],
-                 ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Customcontainer(context),
+                      Secondbutton(context),
+                      Thirdbutton(context),
+                    ],
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -369,95 +548,8 @@ class _DrumPageState extends State<DrumPage> {
     );
   }
 
-  Customcontainer(BuildContext context){
-    return
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 70,
-        width: 70,
-        decoration: const BoxDecoration(
-          //color: Colors.red,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              offset: Offset(0.0, 0.0),
-              blurRadius: 10.0,
-              spreadRadius: 0.0,
-            )
-          ],
-
-        ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.purple,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 32, vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text("",style: TextStyle(fontSize: 40),),
-            onPressed: (){
-              setState(
-                    () {
-                  _makeDiscs();
-                },
-              );
-              final player = AudioPlayer();
-              player.play(AssetSource('drum1.wav'));
-
-            },
-          ),
-    ),
-      );
-  }
-
-  Secondbutton(BuildContext context){
-    return
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 70,
-          width: 70,
-          decoration: const BoxDecoration(
-            //color: Colors.red,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 0.0),
-                blurRadius: 10.0,
-                spreadRadius: 0.0,
-              )
-            ],
-
-          ),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.pink,
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 32, vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text("",style: TextStyle(fontSize: 40),),
-            onPressed: (){
-              setState(
-                    () {
-                  _makeDiscs();
-                },
-              );
-              final player = AudioPlayer();
-              player.play(AssetSource('Drum2.wav'));
-            },
-          ),
-        ),
-      );
-  }
-  Thirdbutton(BuildContext context){
-    return
-    Padding(
+  Customcontainer(BuildContext context) {
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         height: 70,
@@ -472,33 +564,116 @@ class _DrumPageState extends State<DrumPage> {
               spreadRadius: 0.0,
             )
           ],
-
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.deepOrange,
-            padding: const EdgeInsets.symmetric(
-                horizontal: 32, vertical: 16),
+            primary: Colors.purple,
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          child: Text("",style: TextStyle(fontSize: 40),),
-          onPressed: (){
-      setState(
-            () {
-          _makeDiscs();
-        },
-      );
-      final player = AudioPlayer();
-      player.play(AssetSource('drum3.wav'));
+          child: Text(
+            "",
+            style: TextStyle(fontSize: 40),
+          ),
+          onPressed: () {
+            setState(
+              () {
+                _makeDiscs();
+              },
+            );
+            final player = AudioPlayer();
+            player.play(AssetSource('drum1.wav'));
+          },
+        ),
+      ),
+    );
+  }
 
+  Secondbutton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 70,
+        width: 70,
+        decoration: const BoxDecoration(
+          //color: Colors.red,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0.0, 0.0),
+              blurRadius: 10.0,
+              spreadRadius: 0.0,
+            )
+          ],
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.pink,
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: Text(
+            "",
+            style: TextStyle(fontSize: 40),
+          ),
+          onPressed: () {
+            setState(
+              () {
+                _makeDiscs();
+              },
+            );
+            final player = AudioPlayer();
+            player.play(AssetSource('Drum2.wav'));
+          },
+        ),
+      ),
+    );
+  }
+
+  Thirdbutton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 70,
+        width: 70,
+        decoration: const BoxDecoration(
+          //color: Colors.red,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0.0, 0.0),
+              blurRadius: 10.0,
+              spreadRadius: 0.0,
+            )
+          ],
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.deepOrange,
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: Text(
+            "",
+            style: TextStyle(fontSize: 40),
+          ),
+          onPressed: () {
+            setState(
+              () {
+                _makeDiscs();
+              },
+            );
+            final player = AudioPlayer();
+            player.play(AssetSource('drum3.wav'));
           },
         ),
       ),
     );
   }
 }
-
-
-
