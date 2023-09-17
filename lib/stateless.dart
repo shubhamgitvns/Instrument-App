@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -75,20 +76,20 @@ class HomePage extends StatelessWidget {
                             ]),
                         child: Center(
                           child: InkWell(
-                            onTap: (){
+                            //<<<<<<<<<<Piano Image>>>>>>>>>>>>>>>>>>>>>>>>
+                            onTap: () {
                               print("cli");
-                              Navigator.pushNamed(context,'/Piano');
+                              Navigator.pushNamed(context, '/Piano');
                             },
-                            child:Image.network('https://cdn.pixabay.com/photo/2012/04/13/00/39/piano-31357_1280.png'),
+                            child: Image.network(
+                                'https://cdn.pixabay.com/photo/2012/04/13/00/39/piano-31357_1280.png',height: 130,),
                           ),
-
                         ),
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      //<<<<<<<<<<<<<Drum Image>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                      //<<<<<<<<<<<<<Drum Image Container>>>>>>>>>>>>>>>>>>>>>>>>>>>
                       child: Container(
                         width: 150,
                         height: 150,
@@ -110,75 +111,17 @@ class HomePage extends StatelessWidget {
                               ),
                             ]),
                         child: Center(
-                            child: SizedBox(
-                                height: 100,
-                                //<<<<<<<<<<<<<Drum Image>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                                child: Image.network('https://cdn.pixabay.com/photo/2014/04/03/00/35/drums-308752_1280.png'))
-
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        //<<<<<<<<<<<<<Piano Button>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/Piano');
+                            child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/Drum');
                           },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 32, vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          //<<<<<<<<<<<<<Button name>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                          child: Image.network('https://cdn.pixabay.com/photo/2014/04/03/00/35/drums-308752_1280.png',height: 100,width: 100),
-
-                          // Text('Piano',
-                            // style: TextStyle(
-                            //     fontWeight: FontWeight.bold, color: Colors.white,
-                            //   fontSize: 20,
-                            //   // color: Color(0xFF09203f),
-                            // ),
-                         // ),
-                        ),
+                          child: Image.network(
+                              'https://cdn.pixabay.com/photo/2014/04/03/00/35/drums-308752_1280.png',height: 120,),
+                        )),
                       ),
                     ),
-                    Center(
-                      //<<<<<<<<<<<<<Drum button>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Navigate to the game screen
-                          Navigator.pushNamed(context, '/Drum');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 32, vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        //<<<<<<<<<<<<<Button name>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                        child: const Text(
-                          'Drum',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20,),
-                        ),
-                      ),
-                    )
                   ],
                 ),
-
               ],
             ),
           ),

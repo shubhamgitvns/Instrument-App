@@ -26,16 +26,15 @@ class VariousDiscs extends StatefulWidget {
 class _VariousDiscsState extends State<VariousDiscs> {
   final _discs = <DiscData>[];
   bool _isRecording = false;
+  //<<<<<<<Elements of audio recorder>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   FlutterSoundRecorder? _audioRecorder;
   FlutterSoundPlayer? _audioPlayer;
-  // bool playrec = false;
-  // bool stoprec = false;
-  // bool startrec = true;
 
   @override
   void initState() {
     super.initState();
     _makeDiscs();
+    //<<<<<<<initialization of audio recorder>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     _initializeAudio();
   }
 // <<<<<<<<audio initialization function>>>>>>>>>>>>>>>>
@@ -70,81 +69,83 @@ class _VariousDiscsState extends State<VariousDiscs> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
-                  _isRecording
-                      ? Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
-                      : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(5.0),
-                        side: const BorderSide(
-                          color: Colors.orange,
-                          width: 1.0,
+              SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
+                    _isRecording
+                        ? Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
+                        : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                        onPressed:
+                        // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
+                        _startRecording,
+                        child: const Icon(
+                          Icons.mic,
+                          color: Colors.green,
+                        )),
+                    SizedBox(width: 10,),// ElevatedButton(
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
                         ),
-                        primary: Colors.white,
-                        //elevation: like a box shadow
-                        elevation: 10.0,
-                      ),
-                      onPressed:
-                      // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
-                      _startRecording,
-                      child: const Icon(
-                        Icons.mic,
-                        color: Colors.green,
-                      )),
-                  SizedBox(width: 10,),// ElevatedButton(
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(5.0),
-                        side: const BorderSide(
-                          color: Colors.orange,
-                          width: 1.0,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        primary: Colors.white,
-                        //elevation: like a box shadow
-                        elevation: 10.0,
-                      ),
-                      onPressed:
-                      // <<<<<<<<Audio stop recording function calling>>>>>>>>>>>>>>>>
-                      _stopRecording,
-                      child: const Icon(
-                        Icons.mic_none,
-                        color: Colors.red,
-                      )),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                        onPressed:
+                        // <<<<<<<<Audio stop recording function calling>>>>>>>>>>>>>>>>
+                        _stopRecording,
+                        child: const Icon(
+                          Icons.mic_none,
+                          color: Colors.red,
+                        )),
+                    const SizedBox(
+                      width: 10,
+                    ),
 
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.all(5.0),
-                        side: const BorderSide(
-                          color: Colors.orange,
-                          width: 1.0,
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        primary: Colors.white,
-                        //elevation: like a box shadow
-                        elevation: 10.0,
-                      ),
-                      onPressed:
-                      // <<<<<<<<Audio  play recording function calling>>>>>>>>>>>>>>>>
-                      _playRecordedAudio,
-                      child: const Icon(
-                        Icons.headphones,
-                        color: Colors.blue,
-                      )), // ElevatedButton(
-                ],
+                        onPressed:
+                        // <<<<<<<<Audio  play recording function calling>>>>>>>>>>>>>>>>
+                        _playRecordedAudio,
+                        child: const Icon(
+                          Icons.headphones,
+                          color: Colors.blue,
+                        )), // ElevatedButton(
+                  ],
+                ),
               ),
               Expanded(
                 child: SizedBox(
@@ -379,7 +380,7 @@ class _VariousDiscsState extends State<VariousDiscs> {
       ),
     );
   }
-
+  // <<<<<<<<Audio start recording function>>>>>>>>>>>>>>>>
   void _startRecording() async {
     if (await _requestPermission(Permission.microphone)) {
       String filePath = await _getFilePath();
@@ -418,7 +419,15 @@ class _VariousDiscsState extends State<VariousDiscs> {
     );
   }
 }
+
+
+
+
+
+
 //********************Drum Page**************************//
+
+
 
 class DrumPage extends StatefulWidget {
   final int numberOfDiscs;
@@ -430,20 +439,38 @@ class DrumPage extends StatefulWidget {
 
 class _DrumPageState extends State<DrumPage> {
   final _discs = <DiscData>[];
+  bool _isRecording = false;
+  //<<<<<<<Element of audio recorder>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  FlutterSoundRecorder? _audioRecorder;
+  FlutterSoundPlayer? _audioPlayer;
 
   @override
   void initState() {
     super.initState();
     _makeDiscs();
+    //<<<<<<<initialization of audio recorder>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    _initializeAudio();
+  }
+// <<<<<<<<audio initialization function>>>>>>>>>>>>>>>>
+  void _initializeAudio() {
+    _audioRecorder = FlutterSoundRecorder();
+    _audioPlayer = FlutterSoundPlayer();
+    _audioPlayer!.openAudioSession();
   }
 
+  @override
+  void dispose() {
+    _audioRecorder!.closeAudioSession();
+    _audioPlayer!.closeAudioSession();
+    super.dispose();
+  }
+  // <<<<<<<<Create the disk>>>>>>>>>>>>>>>>
   void _makeDiscs() {
     _discs.clear();
     for (int i = 0; i < widget.numberOfDiscs; i++) {
       _discs.add(DiscData());
     }
   }
-
   double buttonheight = 150;
   @override
   Widget build(BuildContext context) {
@@ -454,6 +481,86 @@ class _DrumPageState extends State<DrumPage> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SafeArea(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
+                    _isRecording
+                        ? Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
+                        : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
+                        ),
+                        onPressed:
+                        // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
+                        _startRecording,
+                        child: const Icon(
+                          Icons.mic,
+                          color: Colors.green,
+                        )),
+
+                    SizedBox(width: 10,),
+
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
+                        ),
+                        onPressed:
+                        // <<<<<<<<Audio stop recording function calling>>>>>>>>>>>>>>>>
+                        _stopRecording,
+                        child: const Icon(
+                          Icons.mic_none,
+                          color: Colors.red,
+                        )),
+                    const SizedBox(
+                      width: 10,
+                    ),
+
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.all(5.0),
+                          side: const BorderSide(
+                            color: Colors.orange,
+                            width: 1.0,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          primary: Colors.white,
+                          //elevation: like a box shadow
+                          elevation: 10.0,
+                        ),
+                        onPressed:
+                        // <<<<<<<<Audio  play recording function calling>>>>>>>>>>>>>>>>
+                        _playRecordedAudio,
+                        child: const Icon(
+                          Icons.headphones,
+                          color: Colors.blue,
+                        )), // ElevatedButton(
+                  ],
+                ),
+              ),
               Expanded(
                 child: SizedBox(
                   height: 300,
@@ -517,7 +624,12 @@ class _DrumPageState extends State<DrumPage> {
               )
             ]),
       ),
+
     );
+
+
+
+
   }
 
   Customcontainer(BuildContext context) {
@@ -648,6 +760,46 @@ class _DrumPageState extends State<DrumPage> {
       ),
     );
   }
+  // <<<<<<<<Audio start recording function>>>>>>>>>>>>>>>>
+  void _startRecording() async {
+    if (await _requestPermission(Permission.microphone)) {
+      String filePath = await _getFilePath();
+      await _audioRecorder!.openAudioSession();
+      await _audioRecorder!.startRecorder(
+        toFile: filePath,
+        codec: Codec.aacMP4,
+      );
+      setState(() => _isRecording = true);
+    } else {
+      print('Permission denied.');
+    }
+  }
+  // <<<<<<<<Audio stop recording function>>>>>>>>>>>>>>>>
+  void _stopRecording() async {
+    await _audioRecorder!.stopRecorder();
+    setState(() => _isRecording = false);
+  }
+
+  Future<String> _getFilePath() async {
+    Directory appDir = await getApplicationDocumentsDirectory();
+    String filePath = appDir.path + '/recorded_audio.aac';
+    return filePath;
+  }
+
+  Future<bool> _requestPermission(Permission permission) async {
+    PermissionStatus status = await permission.request();
+    return status.isGranted;
+  }
+
+  void _playRecordedAudio() async {
+    String filePath = await _getFilePath();
+    await _audioPlayer!.startPlayer(
+      fromURI: filePath,
+      codec: Codec.aacMP4,
+    );
+  }
+
+
 }
 
 
