@@ -22,7 +22,7 @@ Flutter/Dart
     <li>Virtual Keybord</li>
     <li>Multiple Sound Options</li>
   <li>Record Play Sound With The Help Of Sound Recorder</li>
-  <li>Play Recorded Sound</li>
+  <li>Play MP3 Recorded Sound</li>
   <li>Each Click Play Bubble Feature</li>
     <li>Support piano sound</li>
     <li>Multi-Touch Support</li>
