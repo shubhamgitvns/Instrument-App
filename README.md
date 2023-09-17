@@ -21,15 +21,19 @@ Flutter/Dart
   <li>Second Drum </li>
     <li>Virtual Keybord</li>
     <li>Multiple Sound Options</li>
+  <li>Record Play Sound With The Help Of Sound Recorder</li>
+  <li>Play Recorded Sound</li>
   <li>Each Click Play Bubble Feature</li>
     <li>Support piano sound</li>
     <li>Multi-Touch Support</li>
   <li>Every Button Create The Different Sound</li>
   </ul>
   <h2>Welcome Page</h2>
-  <img width="959" alt="welcome" src="https://github.com/shubhamgitvns/piano/assets/93187281/5c9a2c2b-b001-4fba-94ae-7b77ce826eb3">
+<img width="955" alt="newwelcomepage" src="https://github.com/shubhamgitvns/Instrument-App/assets/93187281/e4777a72-de2e-4e40-b885-5f048e616618">
   <h2>Piano Page</h2>
-<img width="960" alt="piano app" src="https://github.com/shubhamgitvns/piano/assets/93187281/a37755a0-8cef-49ac-aea5-f59a913b319e">
+<img width="956" alt="newpiano" src="https://github.com/shubhamgitvns/Instrument-App/assets/93187281/2e60210e-e029-4b54-9c36-a5c8559105b3">
+
 <h2>Drum Page</h2>
-<img width="955" alt="Screenshot 2023-07-31 162148" src="https://github.com/shubhamgitvns/piano/assets/93187281/75e3119d-be61-43fc-aa70-75edaa527f72">
+<img width="957" alt="newdrum" src="https://github.com/shubhamgitvns/Instrument-App/assets/93187281/648a4833-f006-405b-a370-f18165c1e322">
+
 
