@@ -8,21 +8,23 @@ class HomePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
+          //<<<<< background gradiant color>>>>>>>>>>>>>>>>>>>>>>
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                // Colors.purple,
                 Colors.purple,
                 Colors.pinkAccent,
               ],
             ),
           ),
+
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                //<<<<<<<<<<<<< Simple Text>>>>>>>>>>>>>>>>>>>>>>>>>>>
                 const Text(
                   'Feel The Music',
                   style: TextStyle(
@@ -33,6 +35,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 32),
+                //<<<<<<<<<<<<< Simple Text>>>>>>>>>>>>>>>>>>>>>>>>>>>
                 const Text(
                   'Get ready to Enjoy Instrument',
                   style: TextStyle(
@@ -49,6 +52,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
+                      //<<<<<<<<Piano image container>>>>>>>>>>>>>>>>>>>>>>>>>>>
                       child: Container(
                         width: 150,
                         height: 150,
@@ -70,15 +74,21 @@ class HomePage extends StatelessWidget {
                               ),
                             ]),
                         child: Center(
-                            child: SizedBox(
-                                height: 100,
-                                child: Image.network(
-                                    'https://cdn.pixabay.com/photo/2012/04/13/00/39/piano-31357_1280.png'))),
+                          child: InkWell(
+                            onTap: (){
+                              print("cli");
+                              Navigator.pushNamed(context,'/Piano');
+                            },
+                            child:Image.network('https://cdn.pixabay.com/photo/2012/04/13/00/39/piano-31357_1280.png'),
+                          ),
+
+                        ),
                       ),
                     ),
 
                     Padding(
                       padding: const EdgeInsets.all(8.0),
+                      //<<<<<<<<<<<<<Drum Image>>>>>>>>>>>>>>>>>>>>>>>>>>>
                       child: Container(
                         width: 150,
                         height: 150,
@@ -102,8 +112,10 @@ class HomePage extends StatelessWidget {
                         child: Center(
                             child: SizedBox(
                                 height: 100,
-                                child: Image.network(
-                                    'https://cdn.pixabay.com/photo/2014/04/03/00/35/drums-308752_1280.png'))),
+                                //<<<<<<<<<<<<<Drum Image>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                child: Image.network('https://cdn.pixabay.com/photo/2014/04/03/00/35/drums-308752_1280.png'))
+
+                        ),
                       ),
                     ),
                   ],
@@ -115,6 +127,7 @@ class HomePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Center(
+                        //<<<<<<<<<<<<<Piano Button>>>>>>>>>>>>>>>>>>>>>>>>>>>
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/Piano');
@@ -127,18 +140,21 @@ class HomePage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: const Text(
-                            'Piano',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, color: Colors.white,
-                              fontSize: 20,
-                              // color: Color(0xFF09203f),
-                            ),
-                          ),
+                          //<<<<<<<<<<<<<Button name>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                          child: Image.network('https://cdn.pixabay.com/photo/2014/04/03/00/35/drums-308752_1280.png',height: 100,width: 100),
+
+                          // Text('Piano',
+                            // style: TextStyle(
+                            //     fontWeight: FontWeight.bold, color: Colors.white,
+                            //   fontSize: 20,
+                            //   // color: Color(0xFF09203f),
+                            // ),
+                         // ),
                         ),
                       ),
                     ),
                     Center(
+                      //<<<<<<<<<<<<<Drum button>>>>>>>>>>>>>>>>>>>>>>>>>>>
                       child: ElevatedButton(
                         onPressed: () {
                           // Navigate to the game screen
@@ -152,6 +168,7 @@ class HomePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
+                        //<<<<<<<<<<<<<Button name>>>>>>>>>>>>>>>>>>>>>>>>>>>
                         child: const Text(
                           'Drum',
                           style: TextStyle(

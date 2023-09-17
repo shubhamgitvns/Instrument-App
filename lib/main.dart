@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:piano/stateful.dart';
 import 'package:piano/stateless.dart';
 
-
+// this class is used the create and moved the babels after the touch icon
 class DiscData {
   static final _rng = Random();
-
   final double size;
   final Color color;
   final Alignment alignment;
