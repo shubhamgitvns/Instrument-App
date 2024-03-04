@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,7 +15,7 @@ import 'main.dart';
 class VariousDiscs extends StatefulWidget {
   final int numberOfDiscs;
 
-  const VariousDiscs(this.numberOfDiscs);
+  const VariousDiscs(this.numberOfDiscs, {super.key});
 
   @override
   _VariousDiscsState createState() => _VariousDiscsState();
@@ -63,7 +62,7 @@ class _VariousDiscsState extends State<VariousDiscs> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFF1000),
+      color: const Color(0x0fff1000),
       child: SizedBox.expand(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -75,10 +74,10 @@ class _VariousDiscsState extends State<VariousDiscs> {
                   children: [
                     // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
                     _isRecording
-                        ? Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
+                        ? const Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
                         : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0), backgroundColor: Colors.white,
                           side: const BorderSide(
                             color: Colors.orange,
                             width: 1.0,
@@ -86,7 +85,6 @@ class _VariousDiscsState extends State<VariousDiscs> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          primary: Colors.white,
                           //elevation: like a box shadow
                           elevation: 10.0,
                         ),
@@ -97,10 +95,10 @@ class _VariousDiscsState extends State<VariousDiscs> {
                           Icons.mic,
                           color: Colors.green,
                         )),
-                    SizedBox(width: 10,),// ElevatedButton(
+                    const SizedBox(width: 10,),// ElevatedButton(
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0), backgroundColor: Colors.white,
                           side: const BorderSide(
                             color: Colors.orange,
                             width: 1.0,
@@ -108,7 +106,6 @@ class _VariousDiscsState extends State<VariousDiscs> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          primary: Colors.white,
                           //elevation: like a box shadow
                           elevation: 10.0,
                         ),
@@ -125,7 +122,7 @@ class _VariousDiscsState extends State<VariousDiscs> {
 
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0), backgroundColor: Colors.white,
                           side: const BorderSide(
                             color: Colors.orange,
                             width: 1.0,
@@ -133,7 +130,6 @@ class _VariousDiscsState extends State<VariousDiscs> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          primary: Colors.white,
                           //elevation: like a box shadow
                           elevation: 10.0,
                         ),
@@ -402,7 +398,7 @@ class _VariousDiscsState extends State<VariousDiscs> {
 
   Future<String> _getFilePath() async {
     Directory appDir = await getApplicationDocumentsDirectory();
-    String filePath = appDir.path + '/recorded_audio.aac';
+    String filePath = '${appDir.path}/recorded_audio.aac';
     return filePath;
   }
 
@@ -431,7 +427,7 @@ class _VariousDiscsState extends State<VariousDiscs> {
 
 class DrumPage extends StatefulWidget {
   final int numberOfDiscs;
-  const DrumPage(this.numberOfDiscs);
+  const DrumPage(this.numberOfDiscs, {super.key});
 
   @override
   State<DrumPage> createState() => _DrumPageState();
@@ -487,10 +483,10 @@ class _DrumPageState extends State<DrumPage> {
                   children: [
                     // <<<<<<<<Audio recording function calling>>>>>>>>>>>>>>>>
                     _isRecording
-                        ? Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
+                        ? const Text('...',style: TextStyle(fontSize: 15,color: Colors.red),)
                         : ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0), backgroundColor: Colors.white,
                           side: const BorderSide(
                             color: Colors.orange,
                             width: 1.0,
@@ -498,7 +494,6 @@ class _DrumPageState extends State<DrumPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          primary: Colors.white,
                           //elevation: like a box shadow
                           elevation: 10.0,
                         ),
@@ -510,11 +505,11 @@ class _DrumPageState extends State<DrumPage> {
                           color: Colors.green,
                         )),
 
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
 
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0), backgroundColor: Colors.white,
                           side: const BorderSide(
                             color: Colors.orange,
                             width: 1.0,
@@ -522,7 +517,6 @@ class _DrumPageState extends State<DrumPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          primary: Colors.white,
                           //elevation: like a box shadow
                           elevation: 10.0,
                         ),
@@ -539,7 +533,7 @@ class _DrumPageState extends State<DrumPage> {
 
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(5.0), backgroundColor: Colors.white,
                           side: const BorderSide(
                             color: Colors.orange,
                             width: 1.0,
@@ -547,7 +541,6 @@ class _DrumPageState extends State<DrumPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          primary: Colors.white,
                           //elevation: like a box shadow
                           elevation: 10.0,
                         ),
@@ -651,13 +644,13 @@ class _DrumPageState extends State<DrumPage> {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.purple,
+            backgroundColor: Colors.purple,
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          child: Text(
+          child: const Text(
             "",
             style: TextStyle(fontSize: 40),
           ),
@@ -694,13 +687,13 @@ class _DrumPageState extends State<DrumPage> {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.pink,
+            backgroundColor: Colors.pink,
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          child: Text(
+          child: const Text(
             "",
             style: TextStyle(fontSize: 40),
           ),
@@ -737,13 +730,13 @@ class _DrumPageState extends State<DrumPage> {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.deepOrange,
+            backgroundColor: Colors.deepOrange,
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          child: Text(
+          child: const Text(
             "",
             style: TextStyle(fontSize: 40),
           ),
@@ -782,7 +775,7 @@ class _DrumPageState extends State<DrumPage> {
 
   Future<String> _getFilePath() async {
     Directory appDir = await getApplicationDocumentsDirectory();
-    String filePath = appDir.path + '/recorded_audio.aac';
+    String filePath = '${appDir.path}/recorded_audio.aac';
     return filePath;
   }
 

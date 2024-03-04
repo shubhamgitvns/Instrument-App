@@ -1,4 +1,3 @@
-
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:piano/stateful.dart';
@@ -33,12 +32,6 @@ void main() {
       '/': (context) => const HomePage(),
       '/Piano': (context) => const VariousDiscs(50),
       '/Drum': (context) => const DrumPage(50),
-
-
     },
   ));
 }
-
-
-
-
